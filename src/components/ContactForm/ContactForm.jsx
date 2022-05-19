@@ -5,12 +5,17 @@ import { nanoid } from 'nanoid';
 import { useDispatch} from 'react-redux';
 import { addContact} from '../../redux/contactsSlice';
 import { MainForm, Label, InputForm, ButtonAdd } from './ContactForm.styled';
+import { useAddNewContactMutation } from '../../redux/contactsSlice';
 
 
 const renderError = message => <p>{message}</p>;
 
 function ContactForm() {
   const dispatch = useDispatch();
+
+  const [addNewContact] = useAddNewContactMutation();
+  //, {isLoading}
+
 
   const initialValues = {
     name: '',
@@ -23,8 +28,11 @@ function ContactForm() {
       name,
       number,
     };
+    
     dispatch(addContact(newContact));
     resetForm();
+    return addNewContact(newContact) 
+    
   };
 
   return (

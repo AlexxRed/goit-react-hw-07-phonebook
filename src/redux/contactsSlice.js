@@ -9,10 +9,29 @@ export const contactsApi = createApi({
             query: () => `/contacts`,
             providesTags: ['Contacts'],
         }),
+        addNewContact: builder.mutation({
+            query: (contact) =>({
+            url: `/contacts`,
+            method: 'POST',
+            body: contact,
+            }),
+            invalidatesTags: ['Contacts'],
+        }),
+        deleteContact: builder.mutation({
+            query: (id) =>({
+            url: `/contacts/${id}`,
+            method: 'DELETE',
+            }),
+            invalidatesTags: ['Contacts'],
+        }),
     }),
 });
 
-export const { useGetContactsQuery } = contactsApi;
+export const {
+    useGetContactsQuery,
+    useAddNewContactMutation,
+    useDeleteContactMutation,
+} = contactsApi;
 
 
 const initialState = {
