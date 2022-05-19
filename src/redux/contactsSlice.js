@@ -1,7 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+export const contactsApi = createApi({
+    reducerPath: 'contactsApi',
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://6286216d96bccbf32d6fc4b5.mockapi.io' }),
+    endpoints: (builder) => ({
+        getContacts: builder.query({
+            query: () => `/contacts`,
+        }),
+    }),
+});
 
+export const { useGetContactsQuery } = contactsApi;
 
 
 const initialState = {

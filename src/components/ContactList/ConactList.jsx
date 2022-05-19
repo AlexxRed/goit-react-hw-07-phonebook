@@ -1,12 +1,19 @@
 import { ButtonDelete, ItemList } from './ContactList.styled';
 import { useDispatch,useSelector } from 'react-redux';
-import {removeContact, getFilteredContacts, getContactsList} from '../../redux/contactsSlice';
+import { removeContact, getFilteredContacts, getContactsList } from '../../redux/contactsSlice';
+import { useGetContactsQuery } from '../../redux/contactsSlice';
 
 
 const ContactList = () => {
   const dispatch = useDispatch();
   const conactsList = useSelector(getContactsList);
-  const filtredList = useSelector(getFilteredContacts)
+  const filtredList = useSelector(getFilteredContacts);
+
+  const { data, error, isLoading } = useGetContactsQuery();
+  
+  console.log(data);
+  console.log(error);
+  console.log(isLoading);
 
   const getVisibleContacts = () => {
     const normalizedFilter = filtredList.toLowerCase();
