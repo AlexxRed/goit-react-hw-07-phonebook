@@ -10,7 +10,6 @@ const ContactList = () => {
   const filtredList = useSelector(getFilteredContacts);
 
   const { data, error, isLoading } = useGetContactsQuery();
-  
   console.log(data);
   console.log(error);
   console.log(isLoading);
