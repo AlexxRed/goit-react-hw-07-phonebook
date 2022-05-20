@@ -1,13 +1,14 @@
 import { ButtonDelete, ItemList } from './ContactList.styled';
 import { useDispatch,useSelector } from 'react-redux';
-import { removeContact, getFilteredContacts, getContactsList } from '../../redux/contactsSlice';
+import { removeContact, getContactsList } from '../../redux/contactsSlice';
 import { useGetContactsQuery, useDeleteContactMutation } from '../../redux/contactsSlice';
 
 
 const ContactList = () => {
   const dispatch = useDispatch();
   const conactsList = useSelector(getContactsList);
-  const filtredList = useSelector(getFilteredContacts);
+  const filtredList = useSelector(state => state.filter.value);
+  console.log(filtredList);
 
   const [deleteContacts] = useDeleteContactMutation();
 
@@ -28,7 +29,7 @@ const ContactList = () => {
   const deleteContact = id => {
     deleteContacts(id);
     return dispatch(removeContact(id));
-     };
+    };
 
   return(
     <ul>
