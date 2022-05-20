@@ -1,17 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const contactsApi = createApi({
     reducerPath: 'contactsApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://6286216d96bccbf32d6fc4b5.mockapi.io' }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'https://6286216d96bccbf32d6fc4b5.mockapi.io/'
+    }),
+    tagTypes: ['Contacts'],
     endpoints: (builder) => ({
         getContacts: builder.query({
-            query: () => `/contacts`,
+            query: () => `contacts`,
             providesTags: ['Contacts'],
         }),
         addNewContact: builder.mutation({
             query: (contact) =>({
-            url: `/contacts`,
+            url: `contacts`,
             method: 'POST',
             body: contact,
             }),
@@ -19,7 +22,7 @@ export const contactsApi = createApi({
         }),
         deleteContact: builder.mutation({
             query: (id) =>({
-            url: `/contacts/${id}`,
+            url: `contacts/${id}`,
             method: 'DELETE',
             }),
             invalidatesTags: ['Contacts'],
@@ -34,18 +37,9 @@ export const {
 } = contactsApi;
 
 
-const initialState = {
-    items: [
-        { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-        { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-        { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-        { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
-};
-
 export const contactsSlice = createSlice({
-    name: 'contacts',
-    initialState,
+    name: 'contactss',
+    initialState: { items:[]},
     reducers: {
         addContact(state, action) {
             state.items.push(action.payload);

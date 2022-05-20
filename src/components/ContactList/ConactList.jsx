@@ -1,21 +1,24 @@
 import { ButtonDelete, ItemList } from './ContactList.styled';
 import { useDispatch,useSelector } from 'react-redux';
 import { removeContact, getContactsList } from '../../redux/contactsSlice';
-import { useGetContactsQuery, useDeleteContactMutation } from '../../redux/contactsSlice';
+import {  useDeleteContactMutation } from '../../redux/contactsSlice';
 
 
-const ContactList = () => {
+const ContactList = ({ contacts }) => {
+  console.log(contacts);
   const dispatch = useDispatch();
   const conactsList = useSelector(getContactsList);
   const filtredList = useSelector(state => state.filter.value);
   console.log(filtredList);
 
+  
+
   const [deleteContacts] = useDeleteContactMutation();
 
-  const { data, error, isLoading } = useGetContactsQuery();
-  console.log(data);
-  console.log(error);
-  console.log(isLoading);
+  // const { data, error, isLoading } = useGetContactsQuery();
+  // console.log(data);
+  // console.log(error);
+  // console.log(isLoading);
 
   const getVisibleContacts = () => {
     const normalizedFilter = filtredList.toLowerCase();
@@ -31,7 +34,7 @@ const ContactList = () => {
     return dispatch(removeContact(id));
     };
 
-  return(
+  return (
     <ul>
     {visibleContacts.length === 0 && <h3>...oops has no contacts :(</h3>}
     {visibleContacts.map(({ id, name, number }) => (
@@ -43,8 +46,10 @@ const ContactList = () => {
           Delete
         </ButtonDelete>
       </ItemList>
+      
     ))}
-  </ul>
+    </ul>
+  
 );
 }
 
